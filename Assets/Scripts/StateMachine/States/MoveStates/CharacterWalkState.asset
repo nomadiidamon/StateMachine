@@ -16,6 +16,6 @@ MonoBehaviour:
   clip: {fileID: 7400000, guid: 449d57a9057f30e4bb15cc43951bf762, type: 2}
   animationName: Walking
   crossFadeTime: 0.2
-  speed: 1.5
-  currentPosition: {x: 0.12998797, y: 0.5833334, z: 3.4730089}
-  targetPosition: {x: 0, y: 0.5, z: 9.59}
+  speed: 5
+  currentPosition: {x: -3.9471498, y: -2.2966666, z: 32.175827}
+  targetPosition: {x: -3.98, y: -1.88, z: 32.45}

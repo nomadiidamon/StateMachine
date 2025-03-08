@@ -5,8 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "IdleState", menuName = "StateMachine/States/IdleStates")]
 public class GenericIdleState : GenericState
 {
-    Vector3 stateStartPosition;
-    Vector3 currentPosition;
 
     public override void OnEnter(GenericStateMachine stateMachine)
 	{
@@ -14,16 +12,10 @@ public class GenericIdleState : GenericState
         animator = stateMachine.GetComponent<Animator>();
         animator.CrossFade(animationName, crossFadeTime);
         stateMachine.currentAnim = animationName;
-        stateStartPosition = stateMachine.transform.position;
 	}
 
     public override void OnUpdate(GenericStateMachine stateMachine)
     {
-        //currentPosition = stateMachine.transform.position;
-        //if (currentPosition != stateStartPosition)
-        //{
-        //    OnExit(stateMachine);
-        //}
     }
 
     public override void OnFixedUpdate(GenericStateMachine stateMachine)

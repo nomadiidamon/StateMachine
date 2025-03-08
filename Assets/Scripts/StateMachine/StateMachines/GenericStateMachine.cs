@@ -30,6 +30,7 @@ public class GenericStateMachine : MonoBehaviour
         {
             states.Add(move);
         }
+        currentState = defaultState;
         ChangeState(defaultState);
 
     }
@@ -40,7 +41,6 @@ public class GenericStateMachine : MonoBehaviour
         {
             currentState.OnUpdate(this);
         }
-
     }
 
     public void TryChangeState(GenericState newState)
@@ -58,21 +58,18 @@ public class GenericStateMachine : MonoBehaviour
 
     public void ChangeState(GenericState newState)
     {
-        if (currentState != null)
+        if (currentState != null && newState != currentState)
         {
             currentState.OnExit(this);
-        }
-
-        currentState = newState;
-
-        if (currentState != null)
-        {
+            currentState = newState;
+            currentAnim = currentState.animationName;
             currentState.OnEnter(this);
         }
+
     }
     public void AssignTargetDestination(Vector3 newDestination)
     {
-        if (move != null)
+        if (move != null && move.targetPosition != newDestination)
         {
             move.targetPosition = newDestination;
             TryChangeState(move);

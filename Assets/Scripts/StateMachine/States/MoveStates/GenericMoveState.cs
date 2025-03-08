@@ -14,31 +14,28 @@ public class GenericMoveState : GenericState
     public override void OnEnter(GenericStateMachine stateMachine)
     {
         Debug.Log("Entering Move State");
+        currentPosition = stateMachine.transform.position;
         agent = stateMachine.navMeshAgent;
         agent.speed = speed;
         animator = stateMachine.GetComponent<Animator>();
         animator.CrossFade(animationName, crossFadeTime);
-        if (targetPosition != null)
+        if (targetPosition != null && agent.destination != targetPosition)
         {
             agent.SetDestination(targetPosition);
         }
-        else
-        {
-            agent.SetDestination(currentPosition);
-        }
         stateMachine.currentAnim = animationName;
-
-    }
-
-    public override void OnUpdate(GenericStateMachine stateMachine)
-    {
         if (!agent.autoRepath)
         {
             agent.autoRepath = true;
         }
+    }
+
+    public override void OnUpdate(GenericStateMachine stateMachine)
+    {
+        currentPosition = stateMachine.transform.position;
         if (IsConditionMet(stateMachine))
         {
-            OnExit(stateMachine);
+            stateMachine.TryChangeState(stateMachine.defaultState);
         }
     }
 
@@ -50,19 +47,19 @@ public class GenericMoveState : GenericState
     public override void OnExit(GenericStateMachine stateMachine)
     {
         Debug.Log("Exiting Move State");
-        stateMachine.TryChangeState(stateMachine.defaultState);
     }
 
     public override bool IsConditionMet(GenericStateMachine stateMachine)
     {
-        currentPosition = stateMachine.transform.position;
-        if (agent.remainingDistance < 0.5f)
+        float distance = Vector3.Distance(currentPosition, targetPosition);
+        if (distance < 0.5f)
         {
-            currentPosition = targetPosition;
             return true;
         }
         else
         {
+            agent.SetDestination(targetPosition);
+            agent.CalculatePath(targetPosition, agent.path);
             return false;
         }
     }
