@@ -1,12 +1,14 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 [System.Serializable]
 public abstract class GenericState : ScriptableObject, IStateMachineCondition
 {
-	public string stateName;
+	public Animator animator;
+    public AnimationClip clip;
+    public string animationName;
+    public float crossFadeTime = 0.2f;
 
-	public virtual bool CanEnter(GenericStateMachine stateMachine)
+    public virtual bool CanEnter(GenericStateMachine stateMachine)
 	{
 		return true;
 	}
