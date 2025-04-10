@@ -1,7 +1,13 @@
 ﻿using System;
 
-public interface IStateMachineCondition 
+namespace IuvoUnity
 {
-	public bool IsConditionMet(GenericStateMachine stateMachine);
-	
+    namespace IuvoBehavior
+    {
+        public interface IStateMachineCondition
+        {
+            public bool IsConditionMet(GenericStateMachine stateMachine);
+
+        }
+    }
 }

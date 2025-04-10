@@ -1,24 +1,30 @@
 using UnityEngine;
 
-public class StateMachineAnalyzer : MonoBehaviour
+namespace IuvoUnity
 {
-    public static StateMachineAnalyzer Instance;
-    [SerializeField] GenericStateMachine toWatch;
-    [SerializeField] Transform target;
-
-    void Awake()
+    namespace IuvoBehavior
     {
-        if (Instance == null)
+        public class StateMachineAnalyzer : MonoBehaviour
         {
-            Instance = this;
-        }
-    }
+            public static StateMachineAnalyzer Instance;
+            [SerializeField] HumanoidStateMachine toWatch;
+            [SerializeField] Transform target;
 
-    void Update()
-    {
-        if (target != null && toWatch != null)
-        {
-            toWatch.AssignTargetDestination(target.position);
+            void Awake()
+            {
+                if (Instance == null)
+                {
+                    Instance = this;
+                }
+            }
+
+            void Update()
+            {
+                if (target != null && toWatch != null)
+                {
+                    toWatch.AssignTargetDestination(target.position);
+                }
+            }
         }
     }
 }
